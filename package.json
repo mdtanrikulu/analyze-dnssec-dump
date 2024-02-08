@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@relaycorp/dnssec": "^1.11.5",
+    "csv-reader": "^1.0.12",
+    "csv-writer": "^1.6.0",
+    "dns-query": "^0.11.2",
+    "dohdec": "^5.0.3"
+  }
+}
