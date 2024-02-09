@@ -30,7 +30,8 @@ async function lookupBatch(domainNames, writer, batchSize, sleepTime) {
     (_, i) => domainNames.slice(i * batchSize, (i + 1) * batchSize)
   );
 
-  for (const batch of batches) {
+  for (const [index, batch] of batches.entries()) {
+    console.log('batch no: ', index + 1, '/', batches.length);
     await sleep(sleepTime);
     const promises = batch.map(async (domainName) => {
       let isDNSSEC = false;
@@ -91,7 +92,8 @@ function evaluateCSV({ input, output, batchSize, sleepTime }) {
       if (
         domain.includes('.') &&
         !domain.startsWith('.') &&
-        !domain.endsWith('.')
+        !domain.endsWith('.') &&
+        !domain.includes('@')
       ) {
         domains.push(domain);
       }
@@ -106,6 +108,6 @@ function evaluateCSV({ input, output, batchSize, sleepTime }) {
 evaluateCSV({
   input: 'resolve_events.csv',
   output: 'results.csv',
-  batchSize: 50,
-  sleepTime: 100,
+  batchSize: 200,
+  sleepTime: 200,
 });
